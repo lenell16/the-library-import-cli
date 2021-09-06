@@ -1,0 +1,38 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["namedConstraints"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Link {
+  id         Int                @id @default(autoincrement())
+  createdAt  DateTime           @default(now()) @db.Timestamptz(6)
+  updatedAt  DateTime           @updatedAt @db.Timestamptz(6)
+  title      String?
+  url        String?            @unique
+  incognito  Boolean            @default(false)
+  categories CategoriesOnLink[]
+}
+
+model Category {
+  id        Int                @id @default(autoincrement())
+  title     String?            @unique
+  createdAt DateTime           @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime           @updatedAt @db.Timestamptz(6)
+  type      String?            @db.VarChar
+  links     CategoriesOnLink[]
+}
+
+model CategoriesOnLink {
+  link       Link     @relation(fields: [linkId], references: [id])
+  linkId     Int // relation scalar field (used in the `@relation` attribute above)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int // relation scalar field (used in the `@relation` attribute above)
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+
+  @@id([linkId, categoryId])
+}
