@@ -3,13 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "devDependencies": {
     "prisma": "^2.30.2"
   },
   "dependencies": {
     "@prisma/client": "^2.30.2",
+    "awesome-json2json": "^0.6.0",
+    "date-fns": "^2.23.0",
     "jsome": "^2.5.0",
     "jsonfile": "^6.1.0",
-    "ramda": "^0.27.1"
+    "p-map-series": "^3.0.0",
+    "promise-fun": "^1.0.1",
+    "ramda": "^0.27.1",
+    "ramda-extension": "^0.11.0",
+    "sade": "^1.7.4",
+    "uid": "^2.0.0"
+  },
+  "bin": {
+    "the-library": "./src/cli.js"
   }
 }
